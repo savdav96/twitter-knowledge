@@ -33,31 +33,34 @@ iterator = twitter_stream.statuses.sample()
 # Here we set it to stop after getting 1000 tweets.
 # You don't have to set it to stop, but can continue running
 # the Twitter API to collect data for days or even longer.
-tweet_count = 0
+
+'''tweet_count = 10
 for tweet in iterator:
-    break
     tweet_count -= 1
     # Twitter Python Tool wraps the data returned by Twitter
     # as a TwitterDictResponse object.
     # We convert it back to the JSON format to print/score
-    print json.dumps(tweet)
+    print(json.dumps(tweet))
 
     # The command below will do pretty printing for JSON data, try it out
     # print json.dumps(tweet, indent=4)
 
     if tweet_count <= 0:
         break
+'''
 
-tweet_count = 5
+tweet_count = 1
 t = Twitter(auth=oauth)
-query = t.search.tweets(q='from:marcotravaglio')  #https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
-for tweet in query["statuses"]:                   # scendi nella pagina web fino alla tabella con gli standard search operators
-    print tweet["text"]
+query = t.search.tweets(q='from:marcotravaglio')    # https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
+print(query)
+for tweet in query["statuses"]:                     # scendi nella pagina web fino alla tabella con gli standard search operators
+    print(tweet["text"])
     print("\n")
     tweet_count -= 1
     if tweet_count <= 0:
         break
 print("Dati utente:\n")
+#print(tweet["user"])
 pretty(tweet["user"], 1) #pretty serve per non stampare tutto su una riga
 
 
