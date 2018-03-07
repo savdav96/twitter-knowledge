@@ -25,3 +25,5 @@ for tweet in public_tweets:
     analysis = textblob.TextBlob(tweet.text)
     print(analysis.sentiment)
     print("\n")
+
+print("I was here")
