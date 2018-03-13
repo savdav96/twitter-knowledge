@@ -49,9 +49,9 @@ for tweet in iterator:
         break
 '''
 
-tweet_count = 1
+tweet_count = 10
 t = Twitter(auth=oauth)
-query = t.search.tweets(q='from:marcotravaglio')    # https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
+query = t.search.tweets(q="from:realdomaldtrump OR from:beppegrillo")  # https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
 print(query)
 for tweet in query["statuses"]:                     # scendi nella pagina web fino alla tabella con gli standard search operators
     print(tweet["text"])
@@ -59,9 +59,14 @@ for tweet in query["statuses"]:                     # scendi nella pagina web fi
     tweet_count -= 1
     if tweet_count <= 0:
         break
-print("Dati utente:\n")
+#print("Dati utente:\n")
 #print(tweet["user"])
-pretty(tweet["user"], 1) #pretty serve per non stampare tutto su una riga
+#pretty(tweet["user"], 1) #pretty serve per non stampare tutto su una riga
 
-
-
+'''
+https://twitter.com/search?l=
+en&q=
+tutto1%3B%20tutto2%3B%20tutto3%20
+%22ciao%2C%20sono%20gino%22
+%20almeno1%3B%20OR%20almeno2%3B%20OR%20almeno3%20-nessuna1%3B%20-nessuna2%3B%20-nessuna3%20%23hashtag1%2C%20OR%20%23hashtag2%3B%20OR%20%23hashtah3%20from%3Autente1%3B%20OR%20from%3Autente2%3B%20OR%20from%3Autente3%20to%3Aautente1%3B%20OR%20to%3Aautente2%3B%20OR%20to%3Aautente3%20%40menzionato1%3B%20OR%20%40menzionato2%3B%20OR%20%40menzionato3%20near%3A%22Mantova%2C%20Lombardia%22%20within%3A15mi%20since%3A2018-03-04%20until%3A2018-03-12&src=typd
+'''
