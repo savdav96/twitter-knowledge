@@ -13,8 +13,8 @@ class Authenticator():
 if __name__ == "__main__":
 
     query = input("Enter query:\n")
-    Twitter = API(Authenticator.authenticate(Davide.keys))
-    #API.search("from:matteorenzi")
+    twitter = API(Authenticator.authenticate(Davide.keys))
+    twitter.search("from:matteorenzi")
 
 
 
