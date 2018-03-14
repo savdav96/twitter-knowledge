@@ -7,7 +7,7 @@ class Davide:
     'access_token_secret': 'ZePuOH4644uTxSdR0ORueszpPERgyGEmDhTFWBeKGLHst'
     }
 
-class Elio:
+class Elio: #ci sono errori nelle chiavi tue
     keys = \
     {
     'consumer_key': 'ZDyFnglZ5MwBkl2r3aqn8IEHt',
