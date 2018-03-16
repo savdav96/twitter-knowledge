@@ -1,5 +1,4 @@
-from tweepy import API, Cursor, OAuthHandler, Stream
-from tweepy.streaming import StreamListener
+from tweepy import API
 from tweepy import OAuthHandler
 from keys import *
 
@@ -10,11 +9,9 @@ class Authenticator():
         auth.set_access_token(keys["access_token"], keys["access_token_secret"])
         return auth
 
-if __name__ == "__main__":
+class Searcher():
 
-    query = input("Enter query:\n")
-    twitter = API(Authenticator.authenticate(Davide.keys))
-    twitter.search("from:matteorenzi")
-
-
-
+    def results(q):
+        twitter = API(Authenticator.authenticate(Davide.keys))
+        result=twitter.search(q)
+        print(result)

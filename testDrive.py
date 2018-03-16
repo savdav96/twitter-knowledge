@@ -49,10 +49,11 @@ for tweet in iterator:
         break
 '''
 
-tweet_count = 10
+tweet_count = 50
 t = Twitter(auth=oauth)
-query = t.search.tweets(q="from:realdomaldtrump OR from:beppegrillo")  # https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
-print(query)
+query = t.search.tweets(q="china from:realdonaldtrump")  # https://developer.twitter.com/en/docs/tweets/search/guides/standard-operators
+#print("a"+str(query))
+
 for tweet in query["statuses"]:                     # scendi nella pagina web fino alla tabella con gli standard search operators
     print(tweet["text"])
     print("\n")
