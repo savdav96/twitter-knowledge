@@ -1,40 +1,34 @@
 from tkinter import *
-from tkinter import messagebox
-from script_tweepy import Searcher
-class Application(Frame):
+
+class View(Frame):
 
     def SubmitController(self):
-        query=self.INPUT.get()
+        query = self.INPUT.get()
         print("You wrote: "+ query)
-        Searcher.results(q=query)
+        TwitterClient.search(q=query)
+        #TwitterClient.(self)
 
     def QuitController(self):
-        messagebox.showwarning("Attenzione", "Usa la X in alto a destra")
+        self.quit()
 
     def createWidget(self):
         self.QUIT = Button(text="QUIT", command=self.QuitController, fg="red")
         self.SUBMIT = Button(text="Submit", command=self.SubmitController)
         self.TEXT = Label(text="Write the search query:", font=("Helvetica",10))
         self.INPUT = Entry()
-        self.visualizer()
+        self.packer()
 
-    def visualizer(self):
+    def packer(self):
         self.QUIT.pack({"side": "left"})
         self.SUBMIT.pack({"side": "right"})
         self.TEXT.pack({"side": "left"})
         self.INPUT.pack({"side": "left"})
 
-
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
+    def __init__(self):
+        self.root = Tk()
+        Frame.__init__(self, self.root)
         self.pack()
+        self.root.title("Twitter search")
+        self.root.geometry("+400+300")
+        self.root.resizable(False, False)
         self.createWidget()
-
-root = Tk()
-root.title("Twitter search")
-root.geometry("+400+300")
-root.resizable(False, False)
-app = Application(master=root)
-app.mainloop()
-root.destroy()
-

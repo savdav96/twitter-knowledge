@@ -1,5 +1,6 @@
-class Davide:
-    keys = \
+from tweepy import OAuthHandler
+
+Davide = \
     {
     'consumer_key': 'FcL6EihLddInuDGYHtwzxkJCO',
     'consumer_secret': '2jJVYrgNeaVoLsUybLaMPMf1JowfRPVq0mDr4ntBGODzOmaSw0',
@@ -7,11 +8,15 @@ class Davide:
     'access_token_secret': 'ZePuOH4644uTxSdR0ORueszpPERgyGEmDhTFWBeKGLHst'
     }
 
-class Elio: #ci sono errori nelle chiavi tue
-    keys = \
+Elio = \
     {
     'consumer_key': 'ZDyFnglZ5MwBkl2r3aqn8IEHt',
     'consumer_secret': 'D4vZIvtEv7sMZ2hj9KYfHvugS8xFXQ2KHJWRtJVmVEfUrWFjbF',
     'access_token': '925076302054461440-J7jS7199LcWFwEIpoETERl5cp48AN7m',
     'access_secret': '0KHi9gwVNwCEZlhRNUQMXXyGYvfNAbDxeG4HSBfqgCCRl',
     }
+
+def authenticate(keys):
+    auth = OAuthHandler(keys["consumer_key"], keys["consumer_secret"])
+    auth.set_access_token(keys["access_token"], keys["access_token_secret"])
+    return auth
