@@ -1,53 +1,47 @@
-from tweepy import API, Cursor, Stream
+from tweepy import Stream
 from tweepy.streaming import StreamListener
 from Authenticator import *
 
-class TwitterClient():
 
-    def __init__(self):
-        self.auth = authenticate(Davide)
-        self.api = API(self.auth)
+class TwitterClient:
 
-    def home_timeline(self, num):
-        for status in Cursor(self.api.home_timeline).items(num):
-            self.__process_or_store__(status._json)
+    def stop_stream(self):
 
-    def friends(self):
-        for friend in Cursor(self.api.friends).items():
-            self.__process_or_store__(friend._json)
+        # Stop stream attribute
 
-    def user_timeline(self):
-        for tweet in Cursor(self.api.user_timeline).items():
-            self.__process_or_store__(tweet._json)
+        self.stream.disconnect()
 
-    def search(self, q):
-        results = self.api.search(q)
-        self.__process_or_store__(results)
+    def start_stream(self, q):
 
-    def stream_tweets(self, q):
-        stream = Stream(self.auth, PrintListener())
-        stream.filter(track=[str(q)])
+        # Authenticate to twitter API and starts stream, uses query to filter tweets
 
-    def __process_or_store__(tweet):
-        print(tweet)
-        return
+        auth = authenticate(Davide)
+        self.stream = Stream(auth, PrintListener())
+        self.stream.filter(track=[str(q)], async=True)
+
 
 class PrintListener(StreamListener):
 
     def on_data(self, data):
+
+        # Saves tweets to JSON file and prints them
+
         try:
-            #with open('python.json', 'a') as f:
+            with open('tweets.json', 'w') as f:
+                f.write(data)
                 print(data)
-                #f.write(data)
-               # return True
+            return True
+
         except BaseException as e:
             print("Error on_data: %s" % str(e))
         return True
 
     def on_error(self, status):
-        print(status)
+
+        # Shows network errors, False terminates stream
+
+        print("Network error: " + status)
+        if status == 420:
+            return False
         return True
 
-t = TwitterClient()
-
-t.stream_tweets("trump")

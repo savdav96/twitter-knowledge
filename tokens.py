@@ -1,4 +1,4 @@
-import re
+import re, json
 
 emoticons_str = r"""
     (?:
@@ -35,6 +35,12 @@ def preprocess(s, lowercase=False):
     return tokens
 
 
+with open('python.json', 'r') as f:
+    line = f.readline()  # read only the first tweet/line
+    tweet = json.loads(line)  # load it as Python dict
+    print(json.dumps(tweet, indent=4))  # pretty-print
+    print(preprocess(str(tweet['text'])))
+
 tweet = 'RT @marcobonzanini: just an example! :D http://example.com #NLP'
 print(preprocess(tweet))
-# ['RT', '@marcobonzanini', ':', 'just', 'an', 'example', '!', ':D',
+# ['RT', '@marcobonzanini', ':', 'just', 'an', 'example', '!', ':D',]

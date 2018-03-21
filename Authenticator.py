@@ -14,9 +14,13 @@ Elio = \
     'consumer_secret': 'D4vZIvtEv7sMZ2hj9KYfHvugS8xFXQ2KHJWRtJVmVEfUrWFjbF',
     'access_token': '925076302054461440-J7jS7199LcWFwEIpoETERl5cp48AN7m',
     'access_secret': '0KHi9gwVNwCEZlhRNUQMXXyGYvfNAbDxeG4HSBfqgCCRl',
-    }
+    }  # This dictionary may be outdated
+
 
 def authenticate(keys):
+
+    # Uses OAuthHandler to access twitter private remote app
+
     auth = OAuthHandler(keys["consumer_key"], keys["consumer_secret"])
     auth.set_access_token(keys["access_token"], keys["access_token_secret"])
     return auth
