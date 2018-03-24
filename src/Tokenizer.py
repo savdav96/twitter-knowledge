@@ -1,10 +1,11 @@
-import re, json
+import re
+
 
 emoticons_str = r"""
     (?:
-        [:=;] # Eyes
-        [oO\-]? # Nose (optional)
-        [D\)\]\(\]/\\OpP] # Mouth
+        [:=;] 
+        [oO\-]?
+        [D\)\]\(\]/\\OpP]
     )"""
 
 regex_str = [
@@ -18,7 +19,7 @@ regex_str = [
     r"(?:[a-z][a-z'\-_]+[a-z])",  # words with - and '
     r'(?:[\w_]+)',  # other words
     r'(?:\S)'  # anything else
-]
+    ]
 
 tokens_re = re.compile(r'(' + '|'.join(regex_str) + ')', re.VERBOSE | re.IGNORECASE)
 emoticon_re = re.compile(r'^' + emoticons_str + '$', re.VERBOSE | re.IGNORECASE)
@@ -35,12 +36,16 @@ def preprocess(s, lowercase=False):
     return tokens
 
 
-with open('python.json', 'r') as f:
-    line = f.readline()  # read only the first tweet/line
-    tweet = json.loads(line)  # load it as Python dict
-    print(json.dumps(tweet, indent=4))  # pretty-print
-    print(preprocess(str(tweet['text'])))
+def get_tokens(list):
 
-tweet = 'RT @marcobonzanini: just an example! :D http://example.com #NLP'
-print(preprocess(tweet))
-# ['RT', '@marcobonzanini', ':', 'just', 'an', 'example', '!', ':D',]
+    for tweet in list:
+        print(preprocess(tweet["text"]))
+
+'''
+t = TwitterClient()
+
+tweets = t.search_no_stream(q="trump", num=10)
+print(len(tweets))
+print("\n")
+get_tokens(tweets)
+'''

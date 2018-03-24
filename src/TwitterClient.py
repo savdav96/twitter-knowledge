@@ -1,9 +1,14 @@
-from tweepy import Stream
+from tweepy import Stream, API
 from tweepy.streaming import StreamListener
-from Authenticator import *
+from src.Authenticator import *
+import json
 
+class TwitterClient():
 
-class TwitterClient:
+    def __init__(self):
+
+        self.auth = authenticate(Davide)
+        self.stream = None
 
     def stop_stream(self):
 
@@ -15,10 +20,22 @@ class TwitterClient:
 
         # Authenticate to twitter API and starts stream, uses query to filter tweets
 
-        auth = authenticate(Davide)
-        self.stream = Stream(auth, PrintListener())
+        self.stream = Stream(self.auth, PrintListener())
         self.stream.filter(track=[str(q)], async=True)
 
+    def search_no_stream(self, q, num, pretty=False):
+
+        # Searches a finite set of tweets given number and the query
+
+        api = API(self.auth)
+        tweets = []
+        for tweet in api.search(q, count=num):
+            tweets.append(tweet._json)
+            if pretty:
+                print(json.dumps(tweet._json, indent=4))
+            else:
+                print(tweet._json)
+        return tweets
 
 class PrintListener(StreamListener):
 
@@ -27,7 +44,7 @@ class PrintListener(StreamListener):
         # Saves tweets to JSON file and prints them
 
         try:
-            with open('tweets.json', 'w') as f:
+            with open('tweets.json', 'a') as f:
                 f.write(data)
                 print(data)
             return True
@@ -44,4 +61,3 @@ class PrintListener(StreamListener):
         if status == 420:
             return False
         return True
-
