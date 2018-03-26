@@ -36,16 +36,7 @@ def preprocess(s, lowercase=False):
     return tokens
 
 
-def get_tokens(list):
+def get_tokens(tweets):
 
-    for tweet in list:
+    for tweet in tweets:
         print(preprocess(tweet["text"]))
-
-'''
-t = TwitterClient()
-
-tweets = t.search_no_stream(q="trump", num=10)
-print(len(tweets))
-print("\n")
-get_tokens(tweets)
-'''

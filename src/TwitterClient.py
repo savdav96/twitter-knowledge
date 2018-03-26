@@ -3,7 +3,8 @@ from tweepy.streaming import StreamListener
 from src.Authenticator import *
 import json
 
-class TwitterClient():
+
+class TwitterClient:
 
     def __init__(self):
 
@@ -32,10 +33,15 @@ class TwitterClient():
         for tweet in api.search(q, count=num):
             tweets.append(tweet._json)
             if pretty:
+
+                print("-------------------------------  BEGIN  -------------------------------\n")
                 print(json.dumps(tweet._json, indent=4))
+                print("\n-------------------------------   END   -------------------------------\n")
+
             else:
-                print(tweet._json)
+                print(tweet._json["text"])
         return tweets
+
 
 class PrintListener(StreamListener):
 

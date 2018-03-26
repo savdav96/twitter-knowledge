@@ -1,4 +1,4 @@
-from src.AppView import App
+from src.View import App
 
 application = App()
 application.run()
