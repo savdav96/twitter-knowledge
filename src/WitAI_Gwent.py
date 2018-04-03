@@ -1,4 +1,4 @@
-# python 2.7
+# python 3
 # Funziona solo con frasi che parlano dello scontro tra fazioni con il verbo to face.
 # Fazioni: Northern Realms, Nilfgaard, Scoia'tael, Monsters, Skellige
 # Con frasi minime evidenzia sotto la voce entity le fazioni, e sott la voce relation il verbo
