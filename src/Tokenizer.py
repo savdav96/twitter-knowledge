@@ -38,5 +38,10 @@ def preprocess(s, lowercase=False):
 
 def get_tokens(tweets):
 
+    tokens = []
     for tweet in tweets:
-        print(preprocess(tweet["text"]))
+        token = preprocess(tweet["text"])
+        tokens.append(token)
+        print(token)
+
+    return tokens

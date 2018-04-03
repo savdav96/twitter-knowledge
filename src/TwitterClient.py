@@ -53,6 +53,7 @@ class PrintListener(StreamListener):
             with open('tweets.json', 'a') as f:
                 f.write(data)
                 print(data)
+            f.close()
             return True
 
         except BaseException as e:
