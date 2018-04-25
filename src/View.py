@@ -2,7 +2,7 @@ from tkinter import ttk
 import tkinter as tk
 from src.TwitterClient import *
 from src.Tokenizer import *
-from src.WitAI_Gwent import WitAi
+from src.WitAIClient import *
 
 class View:
 
@@ -13,7 +13,7 @@ class View:
         self.tweets = []
         self.tokens = []
         self.twitter = TwitterClient()
-        self.witai = WitAi
+        self.witai = WitAIClient
         self.frame = tk.Frame(master)
         self.create_widget()
 
@@ -23,7 +23,7 @@ class View:
 
         self.stop = ttk.Button(text="STOP", command=self.stop_controller)
         self.submit = ttk.Button(text="Submit", command=self.submit_controller)
-        self.witai = ttk.Button(text="Ask wit.ai", command=self.witai_controller)
+        self.witaiButton = ttk.Button(text="Ask wit.ai", command=self.witai_controller)
         self.tokenize = ttk.Button(text="Tokenize", state="disabled", command=self.tokenize_controller)
         self.text = ttk.Label(text="Input the search query/stream filter:")
         self.entry = ttk.Entry()
@@ -39,7 +39,7 @@ class View:
         self.use_pretty.grid(row=0, column=3)
         self.use_stream.grid(row=0, column=4)
         self.submit.grid(row=0, column=6, padx=5, pady=5)
-        self.witai.grid(row=1, column=6, padx=5, pady=5)
+        self.witaiButton.grid(row=1, column=6, padx=5, pady=5)
         self.status.grid(row=1, column=1)
         self.tokenize.grid(row=1, column=5)
 

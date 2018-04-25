@@ -30,7 +30,7 @@ class TwitterClient:
 
         api = API(self.auth)
         tweets = []
-        for tweet in api.search(q, count=num):
+        for tweet in api.search(q, lang='en', count=num):
             tweets.append(tweet._json)
             if pretty:
 
