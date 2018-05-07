@@ -3,6 +3,7 @@ import tkinter as tk
 from src.TwitterClient import *
 from src.Tokenizer import *
 from src.WitAIClient import *
+from src.IBMWatsonClient import *
 
 class View:
 
@@ -14,6 +15,7 @@ class View:
         self.tokens = []
         self.twitter = TwitterClient()
         self.witai = WitAIClient
+        self.IBMWatson = IBMWatsonClient
         self.frame = tk.Frame(master)
         self.create_widget()
 
@@ -23,7 +25,7 @@ class View:
 
         self.stop = ttk.Button(text="STOP", command=self.stop_controller)
         self.submit = ttk.Button(text="Submit", command=self.submit_controller)
-        self.witaiButton = ttk.Button(text="Ask wit.ai", command=self.witai_controller)
+        self.IBMWatsonButton = ttk.Button(text="Ask IBMWatson", command=self.IBMWatson_controller())
         self.tokenize = ttk.Button(text="Tokenize", state="disabled", command=self.tokenize_controller)
         self.text = ttk.Label(text="Input the search query/stream filter:")
         self.entry = ttk.Entry()
@@ -59,6 +61,11 @@ class View:
 
         self.witai.wit_ai_request(q=self.tweets["text"])
         print(self.witai.get_response())
+
+    def IBMWatson_controller(self):
+
+        self.IBMWatson.watson_request(dict(q=self.tweets['text']))
+        print(self.IBMWatson.get_response())
 
 
     def submit_controller(self):
