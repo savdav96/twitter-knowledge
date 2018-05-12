@@ -41,7 +41,7 @@ class View:
         self.use_pretty.grid(row=0, column=3)
         self.use_stream.grid(row=0, column=4)
         self.submit.grid(row=0, column=6, padx=5, pady=5)
-        self.witaiButton.grid(row=1, column=6, padx=5, pady=5)
+        self.IBMWatsonButton.grid(row=1, column=6, padx=5, pady=5)
         self.status.grid(row=1, column=1)
         self.tokenize.grid(row=1, column=5)
 
@@ -58,14 +58,14 @@ class View:
         return
 
     def witai_controller(self):
-
-        self.witai.wit_ai_request(q=self.tweets["text"])
-        print(self.witai.get_response())
+        for tweet in self.tweets:
+            self.witai.wit_ai_request(q=tweet)
+            print(self.witai.get_response())
 
     def IBMWatson_controller(self):
-
-        self.IBMWatson.watson_request(dict(q=self.tweets['text']))
-        print(self.IBMWatson.get_response())
+        for tweet in self.tweets:
+            self.IBMWatson.watson_request(q=tweet)
+            print(self.IBMWatson.get_response())
 
 
     def submit_controller(self):
@@ -91,7 +91,7 @@ class View:
 
         else:
 
-            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=100)
+            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=5)
             self.status.configure(text="Results printed below")
 
         if len(self.tweets):

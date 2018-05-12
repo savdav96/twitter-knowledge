@@ -1,9 +1,10 @@
 
+from src.View import View
 from src.IBMWatsonClient import IBMWatsonClient
 import json
 
 #IBM Watson Assistant limita le richieste a 10 000 al mese
-
+'''
 client = IBMWatsonClient()
 client.watson_request('All the Marvel movies ranked from cringiest to pretty damn good')
 print(json.dumps(client.get_response(), sort_keys=True, indent=4))
@@ -16,4 +17,7 @@ print(json.dumps(client.get_response(), sort_keys=True, indent=4))
 print("-----------------------------------------------------------------------------------")
 client.watson_request('The first teaser trailer for Avengers : InfinityWar showed off SpiderMan')
 print(json.dumps(client.get_response(), sort_keys=True, indent=4))
+'''
 
+View.
+print(View.tweet[2]);
