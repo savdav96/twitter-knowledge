@@ -1,9 +1,12 @@
 from tkinter import ttk
 import tkinter as tk
+import datetime
 from src.TwitterClient import *
 from src.Tokenizer import *
 from src.WitAIClient import *
 from src.IBMWatsonClient import *
+from src.DataMiningStatistics import *
+from src.FileIO import *
 
 class View:
 
@@ -15,22 +18,34 @@ class View:
         self.tokens = []
         self.twitter = TwitterClient()
         self.witai = WitAIClient
-        self.IBMWatson = IBMWatsonClient
+        self.IBMWatson = IBMWatsonClient()
+        self.statistics = DataMiningStatistics()
+        self.positive = False
+        self.true = False
+        self.data = load_obj("twitter knowledge data")
         self.frame = tk.Frame(master)
         self.create_widget()
+
 
     def create_widget(self):
 
         # Creates widgets and packs them into the Tk() frame
-
+        self.emptyRow = ttk.Label()
         self.stop = ttk.Button(text="STOP", command=self.stop_controller)
         self.submit = ttk.Button(text="Submit", command=self.submit_controller)
-        self.IBMWatsonButton = ttk.Button(text="Ask IBMWatson", command=self.IBMWatson_controller())
+        self.IBMWatsonButton = ttk.Button(text="Ask IBMWatson", command=self.IBMWatson_controller)
         self.tokenize = ttk.Button(text="Tokenize", state="disabled", command=self.tokenize_controller)
         self.text = ttk.Label(text="Input the search query/stream filter:")
         self.entry = ttk.Entry()
         self.use_pretty = ttk.Checkbutton(text="Pretty Print", variable=self.pretty)
         self.use_stream = ttk.Checkbutton(text="Stream (BETA)", variable=self.stream)
+        self.recognized = ttk.Label(text="Tweet recognized?")
+        self.recognizedY = ttk.Button(text="Yes", state="disabled", command=self.set_positive)
+        self.recognizedN = ttk.Button(text="No", state="disabled", command=self.set_negative)
+        self.knownIntent = ttk.Label(text="Known intent?")
+        self.knownIntentY = ttk.Button(text="Yes", state="disabled", command=self.set_true)
+        self.knownIntentN = ttk.Button(text="No", state="disabled", command=self.precision_recall)
+        self.save = ttk.Button(text="Save", command=self.save_data)
         self.status = ttk.Label(text="Ready")
         self.packer()
 
@@ -42,8 +57,16 @@ class View:
         self.use_stream.grid(row=0, column=4)
         self.submit.grid(row=0, column=6, padx=5, pady=5)
         self.IBMWatsonButton.grid(row=1, column=6, padx=5, pady=5)
-        self.status.grid(row=1, column=1)
+        self.emptyRow.grid(row=4, column=1)
+        self.status.grid(row=5, column=1)
         self.tokenize.grid(row=1, column=5)
+        self.recognized.grid(row=2, column=1)
+        self.knownIntent.grid(row=3, column=1)
+        self.recognizedY.grid(row=2, column=2)
+        self.recognizedN.grid(row=2, column=3)
+        self.knownIntentY.grid(row=3, column=2)
+        self.knownIntentN.grid(row=3, column=3)
+        self.save.grid(row=4, column=5)
 
         return
 
@@ -63,9 +86,15 @@ class View:
             print(self.witai.get_response())
 
     def IBMWatson_controller(self):
-        for tweet in self.tweets:
-            self.IBMWatson.watson_request(q=tweet)
-            print(self.IBMWatson.get_response())
+        self.IBMWatson.watson_request(q=self.tweets[0]["text"])
+        response = self.IBMWatson.get_response()
+        print("Watson Assistant response: \n")
+        print(response['intents'])
+        print(response['entities'])
+        self.recognizedY.configure(state="normal")
+        self.recognizedN.configure(state="normal")
+        self.knownIntentY.configure(state="normal")
+        self.knownIntentN.configure(state="normal")
 
 
     def submit_controller(self):
@@ -91,7 +120,7 @@ class View:
 
         else:
 
-            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=5)
+            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=1)
             self.status.configure(text="Results printed below")
 
         if len(self.tweets):
@@ -110,6 +139,39 @@ class View:
         self.twitter.stop_stream()
 
         return
+
+    def set_positive(self):
+        self.positive = True
+        self.recognizedY.configure(state="disabled")
+        self.recognizedN.configure(state="disabled")
+
+    def set_negative(self):
+        self.recognizedY.configure(state="disabled")
+        self.recognizedN.configure(state="disabled")
+
+    def set_true(self):
+        self.true = True
+        self.precision_recall()
+
+    def precision_recall(self):
+        if self.positive & self.true:
+            self.statistics.TP = +1
+        if self.positive & (not self.true):
+            self.statistics.NP = +1
+        if (not self.positive) & self.true:
+            self.statistics.TN = +1
+        if (not self.positive) & (not self.true):
+            self.statistics.FN = +1
+        self.positive = False
+        self.true = False
+        self.knownIntentY.configure(state="disabled")
+        self.knownIntentN.configure(state="disabled")
+
+    def save_data(self):
+        self.data.append({'Date': str(datetime.datetime.now()),
+                          'Precision': self.statistics.getPrecision(),
+                          'Recall': self.statistics.getRecall()})
+        save_obj(self.data, "twitter knowledge data")
 
 
 class App:

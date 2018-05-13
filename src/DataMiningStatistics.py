@@ -1,5 +1,5 @@
 
-class DataMiningStatistics:
+class DataMiningStatistics:     #Class that calculates precision and recaall
 
     def __init__(self):
         self.precision = 0

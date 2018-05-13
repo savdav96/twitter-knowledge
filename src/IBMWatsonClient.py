@@ -1,4 +1,6 @@
 from watson_developer_cloud import AssistantV1
+import  json
+
 
 class IBMWatsonClient:
 
@@ -8,6 +10,7 @@ class IBMWatsonClient:
             password='4YRkkDQatabE',
             version='2018-02-16',
         )
+        self.response = None
 
     def get_response(self):
         return self.response
