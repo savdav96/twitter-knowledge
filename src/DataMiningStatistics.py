@@ -9,14 +9,15 @@ class DataMiningStatistics:     #Class that calculates precision and recaall
         self.FP = 0     #number of recognized tweets with an unknown intent (relation)
         self.FN = 0     #number of unrecognized tweets with a known intent (relation)
 
-
-    def getPrecision(self):
+    def get_precision(self):
         if self.TP + self.FP != 0:
             self.precision = self.TP / (self.TP + self.FP)
         return self.precision
 
-
-    def getRecall(self):
+    def get_recall(self):
         if self.TP + self.FN != 0:
             self.precision = self.TP / (self.TP + self.FN)
         return self.recall
+
+    def sample_dimension(self):
+        return self.TN + self.TP + self.FN + self.FP

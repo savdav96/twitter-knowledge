@@ -23,6 +23,10 @@ class View:
         self.positive = False
         self.true = False
         self.data = load_obj("twitter knowledge data")
+        if self.tweets.__len__() > 0:
+            self.current_tweet = self.tweets[0]
+        else:
+            self.current_tweet = "..."
         self.frame = tk.Frame(master)
         self.create_widget()
 
@@ -46,6 +50,8 @@ class View:
         self.knownIntentY = ttk.Button(text="Yes", state="disabled", command=self.set_true)
         self.knownIntentN = ttk.Button(text="No", state="disabled", command=self.precision_recall)
         self.save = ttk.Button(text="Save", command=self.save_data)
+        self.show_data = ttk.Button(text="Show Data", command=self.print_data)
+        self.current_tweet_label=ttk.Label(text="Last tweet:\t" + self.current_tweet)
         self.status = ttk.Label(text="Ready")
         self.packer()
 
@@ -66,7 +72,9 @@ class View:
         self.recognizedN.grid(row=2, column=3)
         self.knownIntentY.grid(row=3, column=2)
         self.knownIntentN.grid(row=3, column=3)
-        self.save.grid(row=4, column=5)
+        self.current_tweet_label.grid(columnspan=4, row=4, column=1)
+        self.save.grid(row=4, column=6)
+        self.show_data.grid(row=4, column=5)
 
         return
 
@@ -86,16 +94,16 @@ class View:
             print(self.witai.get_response())
 
     def IBMWatson_controller(self):
-        self.IBMWatson.watson_request(q=self.tweets[0]["text"])
-        response = self.IBMWatson.get_response()
-        print("Watson Assistant response: \n")
-        print(response['intents'])
-        print(response['entities'])
-        self.recognizedY.configure(state="normal")
-        self.recognizedN.configure(state="normal")
-        self.knownIntentY.configure(state="normal")
-        self.knownIntentN.configure(state="normal")
-
+        if self.tweets.__len__() > 0:
+            self.IBMWatson.watson_request(q=self.tweets[0]["text"])
+            response = self.IBMWatson.get_response()
+            print("\nWatson Assistant response:")
+            print(response['intents'])
+            print(response['entities'])
+            self.recognizedY.configure(state="normal")
+            self.recognizedN.configure(state="normal")
+            self.update_current_tweet()
+            self.tweets.remove(self.tweets[0])
 
     def submit_controller(self):
 
@@ -120,7 +128,7 @@ class View:
 
         else:
 
-            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=1)
+            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=30)
             self.status.configure(text="Results printed below")
 
         if len(self.tweets):
@@ -144,10 +152,14 @@ class View:
         self.positive = True
         self.recognizedY.configure(state="disabled")
         self.recognizedN.configure(state="disabled")
+        self.knownIntentY.configure(state="normal")
+        self.knownIntentN.configure(state="normal")
 
     def set_negative(self):
         self.recognizedY.configure(state="disabled")
         self.recognizedN.configure(state="disabled")
+        self.knownIntentY.configure(state="normal")
+        self.knownIntentN.configure(state="normal")
 
     def set_true(self):
         self.true = True
@@ -169,9 +181,20 @@ class View:
 
     def save_data(self):
         self.data.append({'Date': str(datetime.datetime.now()),
-                          'Precision': self.statistics.getPrecision(),
-                          'Recall': self.statistics.getRecall()})
+                          'Precision': self.statistics.get_precision(),
+                          'Recall': self.statistics.get_recall(),
+                          'Amount of analyzed tweets': self.statistics.sample_dimension()})
         save_obj(self.data, "twitter knowledge data")
+
+    def print_data(self):
+        print(self.data)
+
+    def update_current_tweet(self):
+        if self.tweets.__len__() > 0:
+            self.current_tweet = self.tweets[0]
+        else:
+            self.current_tweet = "..."
+        self.current_tweet_label.configure(text="Last tweet:\t" + self.current_tweet['text'])
 
 
 class App:
@@ -184,7 +207,7 @@ class App:
 
     def run(self):
         self.root.title("Twitter Knowledge")
-        self.root.resizable(False, False)
+        self.root.resizable(True, True)
         self.root.deiconify()
         self.root.mainloop()
 
