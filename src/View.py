@@ -101,7 +101,9 @@ class View:
             print("\nWatson Assistant response:")
             print(response['intents'])
             print(response['entities'])
-            relation = {'Relation': response['intents'], 'Entities involved': response['entities']}
+            relation = {'Relation': response['intents'],
+                        'Entities involved': response['entities'],
+                        'Tweet text': self.tweets[0]["text"]}
             self.relations.append(relation)
             self.recognizedY.configure(state="normal")
             self.recognizedN.configure(state="normal")
