@@ -27,6 +27,7 @@ class View:
             self.current_tweet = self.tweets[0]
         else:
             self.current_tweet = "..."
+        self.relations = []
         self.frame = tk.Frame(master)
         self.create_widget()
 
@@ -100,6 +101,8 @@ class View:
             print("\nWatson Assistant response:")
             print(response['intents'])
             print(response['entities'])
+            relation = {'Relation': response['intents'], 'Entities involved': response['entities']}
+            self.relations.append(relation)
             self.recognizedY.configure(state="normal")
             self.recognizedN.configure(state="normal")
             self.update_current_tweet()
@@ -183,7 +186,8 @@ class View:
         self.data.append({'Date': str(datetime.datetime.now()),
                           'Precision': self.statistics.get_precision(),
                           'Recall': self.statistics.get_recall(),
-                          'Amount of analyzed tweets': self.statistics.sample_dimension()})
+                          'Amount of analyzed tweets': self.statistics.sample_dimension(),
+                          'Relations': self.relations})
         save_obj(self.data, "twitter knowledge data")
 
     def print_data(self):
