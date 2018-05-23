@@ -1,6 +1,4 @@
 import urllib.request
-import json
-import certifi
 
 
 class WitAIClient:
@@ -23,8 +21,6 @@ class WitAIClient:
 
 def _convert_to_url(query):
 
-    # Statica (non indentata in classe) in quanto non utilizza self
-
     index = 0
     while index < len(query):
         if query[index] == ' ':
@@ -35,15 +31,6 @@ def _convert_to_url(query):
     return result
 
 
-'''
-    def prettyPrint(self, d, indent=0): # stampa decentemente i dizionari (inutilizzata)
-        for key, value in d.items():
-            print('\t' * indent + str(key) + ":")
-            if isinstance(value, dict):
-                self.pretty(value, indent+1)
-            else:
-                print('\t' * (indent+1) + str(value))
-'''
 
 ### per la print userei il get_
 

@@ -1,12 +1,9 @@
 from tkinter import ttk
 import tkinter as tk
 import datetime
-from src.TwitterClient import *
-from src.Tokenizer import *
-from src.WitAIClient import *
-from src.IBMWatsonClient import *
-from src.DataMiningStatistics import *
-from src.FileIO import *
+from src.models.twitter.TwitterClient import *
+from deprecated.WitAIClient import *
+
 
 class View:
 
@@ -81,7 +78,7 @@ class View:
 
     def tokenize_controller(self):
 
-        # Calls tokenize function from Tokenizer.py
+        # Calls tokenize function from TokenizerUtils.py
 
         self.tokens = get_tokens(self.tweets)
         self.status.configure(text="Tweets tokenized")
@@ -95,6 +92,7 @@ class View:
             print(self.witai.get_response())
 
     def IBMWatson_controller(self):
+
         if self.tweets.__len__() > 0:
             self.IBMWatson.watson_request(q=self.tweets[0]["text"])
             response = self.IBMWatson.get_response()
@@ -134,7 +132,11 @@ class View:
         else:
 
             self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=30)
+            self.tweets = cleaner(self.tweets)
             self.status.configure(text="Results printed below")
+            print("#############################################################################")
+            for tweet in self.tweets:
+                print(tweet)
 
         if len(self.tweets):
 
@@ -186,9 +188,9 @@ class View:
 
     def save_data(self):
         self.data.append({'Date': str(datetime.datetime.now()),
-                          'Precision': self.statistics.get_precision(),
-                          'Recall': self.statistics.get_recall(),
-                          'Amount of analyzed tweets': self.statistics.sample_dimension(),
+                          'Precision': self.statistics.get_precision,
+                          'Recall': self.statistics.get_recall,
+                          'Amount of analyzed tweets': self.statistics.sample_dimension,
                           'Relations': self.relations})
         save_obj(self.data, "twitter knowledge data")
 

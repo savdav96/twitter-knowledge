@@ -1,6 +1,5 @@
 from tweepy import Stream, API
-from tweepy.streaming import StreamListener
-from src.Authenticator import *
+from src.models.twitter import PrintListener
 import json
 
 
@@ -10,6 +9,7 @@ class TwitterClient:
 
         self.auth = authenticate(Davide)
         self.stream = None
+        self.print_listener = PrintListener()
 
     def stop_stream(self):
 
@@ -21,7 +21,7 @@ class TwitterClient:
 
         # Authenticate to twitter API and starts stream, uses query to filter tweets
 
-        self.stream = Stream(self.auth, PrintListener())
+        self.stream = Stream(self.auth, self.print_listener)
         self.stream.filter(track=[str(q)], async=True)
 
     def search_no_stream(self, q, num, pretty=False):
@@ -30,6 +30,7 @@ class TwitterClient:
 
         api = API(self.auth)
         tweets = []
+
         for tweet in api.search(q, lang='en', count=num):
             tweets.append(tweet._json)
             if pretty:
@@ -43,28 +44,4 @@ class TwitterClient:
         return tweets
 
 
-class PrintListener(StreamListener):
 
-    def on_data(self, data):
-
-        # Saves tweets to JSON file and prints them
-
-        try:
-            with open('tweets.json', 'a') as f:
-                f.write(data)
-                print(data)
-            f.close()
-            return True
-
-        except BaseException as e:
-            print("Error on_data: %s" % str(e))
-        return True
-
-    def on_error(self, status):
-
-        # Shows network errors, False terminates stream
-
-        print("Network error: " + status)
-        if status == 420:
-            return False
-        return True

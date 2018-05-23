@@ -42,6 +42,27 @@ def get_tokens(tweets):
     for tweet in tweets:
         token = preprocess(tweet["text"])
         tokens.append(token)
-        print(token)
 
     return tokens
+
+
+def get_text(raw_tweets):
+
+    tweets = []
+    for raw_tweet in raw_tweets:
+        tweets.append(raw_tweet["text"])
+
+    return tweets
+
+
+def cleaner(raw_tweets):
+
+    cleaned_tweets = []
+    tweets = get_text(raw_tweets)
+
+    for tweet in tweets:
+        cleaned_tweet = tweet.decode("utf8").encode('ascii', 'ignore')
+        cleaned_tweets.append(cleaned_tweet)
+
+
+    return cleaned_tweets
