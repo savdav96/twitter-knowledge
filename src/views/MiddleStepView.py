@@ -1,8 +1,14 @@
 import tkinter as tk
 
+
 class TweetsView(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-
-        header = tk.Label(self, text="This is step 2", bd=2, relief="groove")
+        header = tk.Label(self, text="Twitter Results:", bd=2, relief="groove")
         header.pack(side="top", fill="x")
+        listbox = tk.Listbox(self, width=50, height=10)
+        scrollbar = tk.Scrollbar(self)
+        listbox.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=listbox.yview)
+        scrollbar.pack(side="right", fill="y")
+        listbox.pack(side="top", fill="both")

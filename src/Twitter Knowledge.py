@@ -1,4 +1,6 @@
-from src.View import App
+from src.controllers.AppController import AppController
 
-application = App()
-application.run()
+#application = App()
+#application.run()
+
+app = AppController

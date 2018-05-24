@@ -3,7 +3,9 @@ import tkinter as tk
 import datetime
 from src.models.twitter.TwitterClient import *
 from deprecated.WitAIClient import *
-
+from src.models.IBMWatson.IBMWatsonClient import *
+from src.models.utils.DataMiningUtils import *
+from src.models.utils.IOUtils import *
 
 class View:
 
@@ -80,7 +82,7 @@ class View:
 
         # Calls tokenize function from TokenizerUtils.py
 
-        self.tokens = get_tokens(self.tweets)
+        #self.tokens = get_tokens(self.tweets)
         self.status.configure(text="Tweets tokenized")
         print(len(self.tokens))
 
@@ -132,7 +134,7 @@ class View:
         else:
 
             self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=30)
-            self.tweets = cleaner(self.tweets)
+            #self.tweets = cleaner(self.tweets)
             self.status.configure(text="Results printed below")
             print("#############################################################################")
             for tweet in self.tweets:
@@ -219,3 +221,7 @@ class App:
         self.root.deiconify()
         self.root.mainloop()
 
+
+if __name__ == "__main__":
+    application = App()
+    application.run()
