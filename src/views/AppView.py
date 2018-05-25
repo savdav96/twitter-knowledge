@@ -1,4 +1,4 @@
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import tkinter as tk
 from src.controllers.TwitterController import TwitterController
 from src.views.TwitterView import TwitterView
@@ -37,7 +37,7 @@ class AppView(tk.Frame):
         self.current_step = step
 
         new_step = self.steps[step]
-        new_step.pack(fill="both", expand=True)
+        new_step.pack(side="top", fill="both", expand=True)
 
         if step == 0:
             # first step
@@ -79,20 +79,17 @@ class AppView(tk.Frame):
     def submit_controller(self):
 
         query = self.steps[0].entry.get()
+        listbox = self.steps[1].listbox
+
         controller = TwitterController()
         if not query:
-            print("Input must not be empty!")
+            messagebox.showwarning("Warning", "Input must not be empty!")
             return
 
         print("You wrote: " + query + "\n")
 
-        controller.search(q=query, mode="normal")
-        tweets = controller.get_tweets()
+        controller.search(q=query, num=1000)
 
-        # self.tweets = cleaner(self.tweets)
-        print("#############################################################################")
+        tweets = controller.get_cleaned_tweets()
         for tweet in tweets:
-            print(tweet)
-
-        return
-
+            listbox.insert("end", tweet)

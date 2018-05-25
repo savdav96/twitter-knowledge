@@ -6,5 +6,6 @@ class AppController:
 
         root = tk.Tk()
         AppView(root).pack(side="top", fill="both", expand=True)
-        root.resizable(width=False, height=False)
+        #root.resizable(width=False, height=False)
+        root.deiconify()
         root.mainloop()
