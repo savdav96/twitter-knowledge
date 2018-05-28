@@ -95,10 +95,12 @@ class View:
 
     def IBMWatson_controller(self):
 
-        if self.tweets.__len__() > 0:
-            self.IBMWatson.watson_request(q=self.tweets[0]["text"])
+        #if self.tweets.__len__() > 0:
+            self.IBMWatson.watson_request(q="A new version of fortnite will be dropped tomorrow")#self.tweets[0]["text"])
             response = self.IBMWatson.get_response()
             print("\nWatson Assistant response:")
+            print(response)
+            print("\n\n\n")
             print(response['intents'])
             print(response['entities'])
             relation = {'Relation': response['intents'],

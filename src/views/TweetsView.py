@@ -12,4 +12,3 @@ class TweetsView(tk.Frame):
         scrollbar.config(command=self.listbox.yview)
         scrollbar.pack(side="right", fill="y")
         self.listbox.pack(side="bottom", fill="both", expand=True)
-        #listbox.

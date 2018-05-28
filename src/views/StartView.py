@@ -3,7 +3,7 @@ import tkinter as tk
 from src.models.twitter.TwitterClient import TwitterClient
 
 
-class TwitterView(tk.Frame):
+class StartView(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 class IMBResponseView(tk.Frame):
 
     def __init__(self, parent):
