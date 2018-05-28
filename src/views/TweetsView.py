@@ -6,7 +6,7 @@ class TweetsView(tk.Frame):
         super().__init__(parent)
         header = tk.Label(self, text="Twitter Results:", bd=2, relief="groove")
         header.pack(side="top", fill="x")
-        self.listbox = tk.Listbox(self, width=15)
+        self.listbox = tk.Listbox(self, width=100, height=10)
         scrollbar = tk.Scrollbar(self)
         self.listbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=self.listbox.yview)
