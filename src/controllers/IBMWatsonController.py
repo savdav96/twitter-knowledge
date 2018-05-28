@@ -4,17 +4,20 @@ from models.IBMWatson.IBMWatsonClient import IBMWatsonClient
 class IBMWatsonController:
 
     def __init__(self):
-        self.response = []
+        self.response = None
         self.__client = IBMWatsonClient()
 
     def ask_ibm_watson(self, query):
         self.__client.watson_request(query)
-        self.response.append(self.__client.get_response())
+        self.response = self.__client.get_response()
 
     def print_response(self):
         # TODO implement list of multiple requests and responses
-        print(self.response[0]['intents'])
-        print(self.response[0]['entities'])
+        print(self.response['intents'])
+        print(self.response['entities'])
+
+    def get_response(self):
+        return self.response
 
 
 if __name__=="__main__":

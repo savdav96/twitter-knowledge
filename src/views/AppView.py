@@ -14,14 +14,13 @@ class AppView(tk.Frame):
         self.cleaned_tweets = []
         self.current_step = None
 
-        self.steps = [StartView(self), TweetsView(self), IMBResponseView(self)]
+        self.steps = [StartView(self), TweetsView(self)]
 
         self.button_frame = tk.Frame(self, bd=1, relief="raised")
         self.content_frame = tk.Frame(self)
 
-        self.back_button = ttk.Button(self.button_frame, text="<< Back", command=self.back)
+        self.back_button = ttk.Button(self.button_frame, text="<< Back", command=self.back_button)
         self.next_button = ttk.Button(self.button_frame, text="Next >>", command=self.next)
-        self.finish_button = ttk.Button(self.button_frame, text="Finish", command=self.finish)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >>", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
         self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >>", command=self.ibm_watson_controller)
@@ -49,16 +48,6 @@ class AppView(tk.Frame):
             self.close_button.pack(side="left")
             self.back_button.pack_forget()
             self.next_button.pack_forget()
-            self.finish_button.pack_forget()
-            self.ibm_watson_button.pack_forget()
-
-        elif step == len(self.steps)-1:
-            # last step
-            self.back_button.pack(side="left")
-            self.finish_button.pack(side="right")
-            self.next_button.pack_forget()
-            self.close_button.pack_forget()
-            self.submit_button.pack_forget()
             self.ibm_watson_button.pack_forget()
 
         else:
@@ -68,7 +57,6 @@ class AppView(tk.Frame):
             self.ibm_watson_button.pack(side="right")
             self.close_button.pack_forget()
             self.submit_button.pack_forget()
-            self.finish_button.pack_forget()
 
     def next(self):
         self.show_step(self.current_step + 1)
@@ -76,8 +64,10 @@ class AppView(tk.Frame):
     def back(self):
         self.show_step(self.current_step - 1)
 
-    def finish(self):
-        pass
+    def back_button(self):
+
+        self.steps[1].listbox.delete(0, "end")
+        self.back()
 
     def submit(self):
         self.submit_controller()
@@ -86,6 +76,17 @@ class AppView(tk.Frame):
     def ibm_watson(self):
         self.ibm_watson_controller()
         self.next()
+
+    def ibm_watson_controller(self):
+
+        query = self.steps[1].listbox.get("active")
+
+        controller = IBMWatsonController()
+        controller.ask_ibm_watson(query)
+        controller.print_response()
+        root = tk.Tk()
+        IMBResponseView(root, controller.get_response()).pack(side="top", fill="both", expand=True)
+        root.mainloop()
 
     def submit_controller(self):
 
@@ -104,12 +105,4 @@ class AppView(tk.Frame):
         self.cleaned_tweets = controller.get_cleaned_tweets()
         for tweet in self.cleaned_tweets:
             listbox.insert("end", tweet)
-
-    def ibm_watson_controller(self):
-
-        query = self.steps[1].listbox.get("active")
-
-        controller = IBMWatsonController()
-        controller.ask_ibm_watson(query)
-        controller.print_response()
 

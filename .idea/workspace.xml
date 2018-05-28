@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e1144476-46cb-462a-a12d-bff87e9b464a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deprecated/View.py" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated/View.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/AppController.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/AppController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/IBMWatsonController.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/IBMWatsonController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/MiddleStepController.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/AppView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/AppView.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/IBMWatsonView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/IBMWatsonView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MiddleStepView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/TweetsView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/TwitterView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/StartView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/TweetsView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/TweetsView.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,7 +20,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/twitter_knowledge$TwitterController.coverage" NAME="TwitterController Coverage Results" MODIFIED="1527262495227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/controllers" />
-    <SUITE FILE_PATH="coverage/twitter_knowledge$IBMWatsonController.coverage" NAME="IBMWatsonController Coverage Results" MODIFIED="1527462678078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/controllers" />
+    <SUITE FILE_PATH="coverage/twitter_knowledge$IBMWatsonController.coverage" NAME="IBMWatsonController Coverage Results" MODIFIED="1527507152060" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/controllers" />
     <SUITE FILE_PATH="coverage/twitter_knowledge$Main.coverage" NAME="Main Coverage Results" MODIFIED="1527086450502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/twitter_knowledge$AppView.coverage" NAME="AppView Coverage Results" MODIFIED="1527111010161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/views" />
     <SUITE FILE_PATH="coverage/twitter_knowledge$App.coverage" NAME="App Coverage Results" MODIFIED="1527108548541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/views" />
@@ -34,10 +30,53 @@
     <SUITE FILE_PATH="coverage/twitter_knowledge$TwitterView.coverage" NAME="TwitterView Coverage Results" MODIFIED="1527109878571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/views" />
     <SUITE FILE_PATH="coverage/twitter_knowledge$View__1_.coverage" NAME="View (1) Coverage Results" MODIFIED="1527110924032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/deprecated" />
     <SUITE FILE_PATH="coverage/twitter_knowledge$AppController.coverage" NAME="AppController Coverage Results" MODIFIED="1527154219130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/controllers" />
-    <SUITE FILE_PATH="coverage/twitter_knowledge$Twitter_Knowledge.coverage" NAME="Twitter Knowledge Coverage Results" MODIFIED="1527463652162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/twitter_knowledge$Twitter_Knowledge.coverage" NAME="Twitter Knowledge Coverage Results" MODIFIED="1527510261997" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="IBMWatsonView.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/IBMWatsonView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppController.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/controllers/AppController.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="7" column="63" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppView.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/AppView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1003">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TweetsView.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/TweetsView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -77,11 +116,11 @@
         <option value="$PROJECT_DIR$/deprecated/View.py" />
         <option value="$PROJECT_DIR$/src/controllers/AppController.py" />
         <option value="$PROJECT_DIR$/src/views/MiddleStepView.py" />
-        <option value="$PROJECT_DIR$/src/views/AppView.py" />
         <option value="$PROJECT_DIR$/src/views/StartView.py" />
-        <option value="$PROJECT_DIR$/src/controllers/IBMWatsonController.py" />
-        <option value="$PROJECT_DIR$/src/views/IBMWatsonView.py" />
         <option value="$PROJECT_DIR$/src/views/TweetsView.py" />
+        <option value="$PROJECT_DIR$/src/controllers/IBMWatsonController.py" />
+        <option value="$PROJECT_DIR$/src/views/AppView.py" />
+        <option value="$PROJECT_DIR$/src/views/IBMWatsonView.py" />
       </list>
     </option>
   </component>
@@ -319,16 +358,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.268" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.26797387" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36356765" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37206823" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -355,7 +395,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/views/TweetsView.py</url>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -373,9 +419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -417,9 +460,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -506,13 +546,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor />
           <second_editor />
         </state>
       </provider>
-      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/deprecated/twitter knowledge data.pkl">
       <provider selected="true" editor-type-id="text-editor" />
@@ -609,22 +649,41 @@
     <entry file="file://$PROJECT_DIR$/src/models/IBMWatson/IBMWatsonClient.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/MiddleStepController.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/IBMWatsonController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/MiddleStepController.py" />
     <entry file="file://$PROJECT_DIR$/src/controllers/TwitterController.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/StartView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/AppController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="63" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/IBMWatsonController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/AppView.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1003">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
           <folding>
-            <element signature="e#0#58#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -638,38 +697,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/IBMWatsonView.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="476">
+          <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/StartView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/AppView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1921">
-          <caret line="113" column="35" selection-start-line="113" selection-start-column="35" selection-end-line="113" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/AppController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
         </state>
       </provider>
     </entry>
