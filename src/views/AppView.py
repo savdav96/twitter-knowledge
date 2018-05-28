@@ -19,14 +19,13 @@ class AppView(tk.Frame):
         self.button_frame = tk.Frame(self, bd=1, relief="raised")
         self.content_frame = tk.Frame(self)
 
-        self.back_button = ttk.Button(self.button_frame, text="<< Back", command=self.back_button)
-        self.next_button = ttk.Button(self.button_frame, text="Next >>", command=self.next)
-        self.submit_button = ttk.Button(self.button_frame, text="Submit >>", command=self.submit)
+        self.back_button = ttk.Button(self.button_frame, text="< Back", command=self.back_button)
+        self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
-        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >>", command=self.ibm_watson_controller)
+        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_controller)
 
         self.button_frame.pack(side="bottom", fill="x", padx=5, pady=5)
-        self.content_frame.pack(side="top", fill="both", expand=True)
+        self.content_frame.pack(side="top", fill="both", anchor="n")
 
         self.show_step(0)
 
@@ -43,17 +42,13 @@ class AppView(tk.Frame):
         new_step.pack(side="top", fill="both", expand=True)
 
         if step == 0:
-            # first step
             self.submit_button.pack(side="right")
             self.close_button.pack(side="left")
             self.back_button.pack_forget()
-            self.next_button.pack_forget()
             self.ibm_watson_button.pack_forget()
 
         else:
-            # all other steps
             self.back_button.pack(side="left")
-            self.next_button.pack_forget()
             self.ibm_watson_button.pack(side="right")
             self.close_button.pack_forget()
             self.submit_button.pack_forget()
@@ -65,7 +60,6 @@ class AppView(tk.Frame):
         self.show_step(self.current_step - 1)
 
     def back_button(self):
-
         self.steps[1].listbox.delete(0, "end")
         self.back()
 
@@ -92,15 +86,18 @@ class AppView(tk.Frame):
 
         query = self.steps[0].entry.get()
         listbox = self.steps[1].listbox
-
+        self.steps[0].spinbox.get()
         controller = TwitterController()
         if not query:
-            messagebox.showwarning("Warning", "Input must not be empty!")
+            messagebox.showwarning("Warning", "Input field must not be empty!")
+            return
+        if not self.steps[0].spinbox.get():
+            messagebox.showwarning("Warning", "Number of tweets field must not be empty!")
             return
 
         print("You wrote: " + query + "\n")
 
-        controller.search(q=query, num=1000)
+        controller.search(q=query, num=self.steps[0].spinbox.get())
 
         self.cleaned_tweets = controller.get_cleaned_tweets()
         for tweet in self.cleaned_tweets:
