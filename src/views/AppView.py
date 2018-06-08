@@ -1,6 +1,9 @@
 from tkinter import ttk, messagebox
 import tkinter as tk
+import datetime
 
+from models.utils.DataMiningUtils import DataMiningStatistics
+from models.utils.IOUtils import save_obj, load_obj
 from src.controllers.TwitterController import TwitterController
 from src.controllers.IBMWatsonController import IBMWatsonController
 from src.views.StartView import StartView
@@ -13,6 +16,9 @@ class AppView(tk.Frame):
         super().__init__(parent)
         self.cleaned_tweets = []
         self.current_step = None
+        self.statistics = DataMiningStatistics()
+        self.data = load_obj("twitter knowledge data")
+        self.relations = []
 
         self.steps = [StartView(self), TweetsView(self)]
 
@@ -20,6 +26,8 @@ class AppView(tk.Frame):
         self.content_frame = tk.Frame(self)
 
         self.back_button = ttk.Button(self.button_frame, text="< Back", command=self.back_button)
+        self.save_button = ttk.Button(self.button_frame, text="Save", command=self.save_controller)
+        self.print_data_button = ttk.Button(self.button_frame, text="Print data", command=self.print_data_controller)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
         self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_controller)
@@ -45,11 +53,15 @@ class AppView(tk.Frame):
             self.submit_button.pack(side="right")
             self.close_button.pack(side="left")
             self.back_button.pack_forget()
+            self.save_button.pack_forget()
+            self.print_data_button.pack_forget()
             self.ibm_watson_button.pack_forget()
 
         else:
             self.back_button.pack(side="left")
             self.ibm_watson_button.pack(side="right")
+            self.save_button.pack(side="left")
+            self.print_data_button.pack(side="left")
             self.close_button.pack_forget()
             self.submit_button.pack_forget()
 
@@ -63,6 +75,17 @@ class AppView(tk.Frame):
         self.steps[1].listbox.delete(0, "end")
         self.back()
 
+    def print_data_controller(self):
+        print(self.data)
+
+    def save_controller(self):
+        self.data.append({'Date': str(datetime.datetime.now()),
+                          'Precision': float(self.statistics.get_precision()),
+                          'Recall': float(self.statistics.get_recall()),
+                          'Amount of analyzed tweets': self.statistics.sample_dimension,
+                          'Relations': self.relations})
+        save_obj(self.data, "twitter knowledge data")
+
     def submit(self):
         self.submit_controller()
         self.next()
@@ -75,11 +98,11 @@ class AppView(tk.Frame):
 
         query = self.steps[1].listbox.get("active")
 
-        controller = IBMWatsonController()
+        controller = IBMWatsonController(self.relations)
         controller.ask_ibm_watson(query)
         controller.print_response()
         root = tk.Tk()
-        IMBResponseView(root, controller.get_response()).pack(side="top", fill="both", expand=True)
+        IMBResponseView(root, controller.get_response(), self.statistics).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
     def submit_controller(self):
