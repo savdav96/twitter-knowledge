@@ -4,10 +4,12 @@ from tkinter import ttk
 
 class IMBResponseView(tk.Frame):
 
-    def __init__(self, parent, response, statistics):
+    def __init__(self, parent, response, statistics, relation, relations):
         super().__init__(parent)
         self.response = response
         self.statistics = statistics
+        self.relation = relation
+        self.relations = relations
         self.recognized = False
         self.known = False
         self.known_intent_button = None
@@ -63,11 +65,16 @@ class IMBResponseView(tk.Frame):
     def handle_intent(self):
         if self.recognized & self.known:
             self.statistics.TP += 1
+            self.relation['Test result'] = "TP"
         if self.recognized & (not self.known):
             self.statistics.FP += 1
+            self.relation['Test result'] = "FP"
         if (not self.recognized) & self.known:
             self.statistics.FN += 1
+            self.relation['Test result'] = "FN"
         if (not self.recognized) & (not self.known):
             self.statistics.TN += 1
+            self.relation['Test result'] = "TN"
         self.done_button.configure(state="disabled")
+        self.relations.append(self.relation)
         self.h6.configure(text="Precision = " + str(self.statistics.get_precision()) + "\tRecall = " + str(self.statistics.get_recall()))

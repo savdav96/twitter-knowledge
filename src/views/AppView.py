@@ -1,3 +1,4 @@
+import pprint
 from tkinter import ttk, messagebox
 import tkinter as tk
 import datetime
@@ -28,6 +29,7 @@ class AppView(tk.Frame):
         self.back_button = ttk.Button(self.button_frame, text="< Back", command=self.back_button)
         self.save_button = ttk.Button(self.button_frame, text="Save", command=self.save_controller)
         self.print_data_button = ttk.Button(self.button_frame, text="Print data", command=self.print_data_controller)
+        self.print_FP_FN_button = ttk.Button(self.button_frame, text="Print FP/FN", command=self.print_FP_FN)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
         self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_controller)
@@ -56,12 +58,14 @@ class AppView(tk.Frame):
             self.save_button.pack_forget()
             self.print_data_button.pack_forget()
             self.ibm_watson_button.pack_forget()
+            self.print_FP_FN_button.pack_forget()
 
         else:
             self.back_button.pack(side="left")
             self.ibm_watson_button.pack(side="right")
             self.save_button.pack(side="left")
             self.print_data_button.pack(side="left")
+            self.print_FP_FN_button.pack(side="left")
             self.close_button.pack_forget()
             self.submit_button.pack_forget()
 
@@ -76,7 +80,18 @@ class AppView(tk.Frame):
         self.back()
 
     def print_data_controller(self):
-        print(self.data)
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(self.data)
+
+    def print_FP_FN(self):
+        k = 0
+        for i in self.data:
+            k += 1
+            for j in i['Relations']:
+                if k < 2:               # first two elements of dictionary hasn't the field "Test result"
+                    break
+                if j['Test result'] == "FP" or j['Test result'] == "FN":
+                    print(j['Tweet text'])
 
     def save_controller(self):
         self.data.append({'Date': str(datetime.datetime.now()),
@@ -98,11 +113,12 @@ class AppView(tk.Frame):
 
         query = self.steps[1].listbox.get("active")
 
-        controller = IBMWatsonController(self.relations)
+        controller = IBMWatsonController()
         controller.ask_ibm_watson(query)
         controller.print_response()
         root = tk.Tk()
-        IMBResponseView(root, controller.get_response(), self.statistics).pack(side="top", fill="both", expand=True)
+        IMBResponseView(root, controller.get_response(), self.statistics, controller.get_last_relation_found(),
+                        self.relations).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
     def submit_controller(self):
