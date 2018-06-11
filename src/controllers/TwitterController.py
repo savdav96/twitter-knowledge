@@ -1,3 +1,4 @@
+from models.utils.IOUtils import save_obj, load_obj
 from src.models.twitter.TwitterClient import TwitterClient
 import json
 from src.models.utils.CleaningUtils import *
@@ -39,17 +40,18 @@ class TwitterController:
 
     def print_cleaned_tweets(self):
         for tweet in self.cleaned_tweets:
-            print(tweet)
+            print(tweet['text'])
 
     def save_raw_tweets(self):
-        # TODO: check function
-        with open("tweets.json", "a") as f:
-            f.writelines(["%s\n" % tweet for tweet in self.raw_tweets])
+        tweets = load_obj("tweets")
+        for tweet in self.raw_tweets:
+            tweets.append(tweet)
+        save_obj(self.raw_tweets, "tweets")
 
     def __clean_raw_tweets(self):
         for tweet in self.raw_tweets:
             self.cleaned_tweets\
-                .append(clean(tweet["text"]))
+                .append({'text': clean(tweet["text"]), 'id': tweet["id"]})
 
 
 if __name__ == "__main__":

@@ -7,18 +7,20 @@ class IBMWatsonController:
         self.__client = IBMWatsonClient()
         self.relation = None
 
-    def ask_ibm_watson(self, query):
+    def ask_ibm_watson(self, query, id):
         self.__client.watson_request(query)
         self.response = self.__client.get_response()
         if not (not self.response["intents"]):
             self.relation = {'Relation': self.response['intents'],
                              'Entities involved': self.response['entities'],
                              'Tweet text': query,
+                             'Tweet id': id,
                              'Test result': "not validated"}
         else:
             self.relation = {'Relation': "not found",
                              'Entities involved': self.response['entities'],
                              'Tweet text': query,
+                             'Tweet id': id,
                              'Test result': "not validated"}
 
     def print_response(self):

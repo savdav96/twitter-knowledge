@@ -110,11 +110,14 @@ class AppView(tk.Frame):
         self.next()
 
     def ibm_watson_controller(self):
-
+        id = None
         query = self.steps[1].listbox.get("active")
-
+        for i in self.cleaned_tweets:
+            if query == i['text']:
+                id = i['id']
+                break
         controller = IBMWatsonController()
-        controller.ask_ibm_watson(query)
+        controller.ask_ibm_watson(query, id)
         controller.print_response()
         root = tk.Tk()
         IMBResponseView(root, controller.get_response(), self.statistics, controller.get_last_relation_found(),
@@ -139,6 +142,7 @@ class AppView(tk.Frame):
         controller.search(q=query, num=self.steps[0].spinbox.get())
 
         self.cleaned_tweets = controller.get_cleaned_tweets()
+        controller.save_raw_tweets()
         for tweet in self.cleaned_tweets:
-            listbox.insert("end", tweet)
+            listbox.insert("end", tweet['text'])
 
