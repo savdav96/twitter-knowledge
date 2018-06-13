@@ -4,12 +4,12 @@ from tkinter import ttk
 
 class IMBResponseView(tk.Frame):
 
-    def __init__(self, parent, response, statistics, relation, relations):
+    def __init__(self, parent, response, data_controller, relation):
         super().__init__(parent)
         self.response = response
-        self.statistics = statistics
+        self.statistics = data_controller.get_statistics()
         self.relation = relation
-        self.relations = relations
+        self.relations = data_controller.get_relations()
         self.recognized = False
         self.known = False
         self.known_intent_button = None

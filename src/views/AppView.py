@@ -3,6 +3,8 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 import datetime
 
+from controllers.DataController import DataController
+from models.DataManagement import DataManagement
 from models.utils.DataMiningUtils import DataMiningStatistics
 from models.utils.IOUtils import save_obj, load_obj
 from src.controllers.TwitterController import TwitterController
@@ -16,10 +18,9 @@ class AppView(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.cleaned_tweets = []
+        self.data_controller = DataController()
+        self.raw_tweets = []
         self.current_step = None
-        self.statistics = DataMiningStatistics()
-        self.data = load_obj("twitter knowledge data")
-        self.relations = []
 
         self.steps = [StartView(self), TweetsView(self)]
 
@@ -80,26 +81,13 @@ class AppView(tk.Frame):
         self.back()
 
     def print_data_controller(self):
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(self.data)
+        self.data_controller.print_data()
 
     def print_FP_FN(self):
-        k = 0
-        for i in self.data:
-            k += 1
-            for j in i['Relations']:
-                if k < 2:               # first two elements of dictionary hasn't the field "Test result"
-                    break
-                if j['Test result'] == "FP" or j['Test result'] == "FN":
-                    print(j['Tweet text'])
+        self.data_controller.print_FP_FN()
 
     def save_controller(self):
-        self.data.append({'Date': str(datetime.datetime.now()),
-                          'Precision': float(self.statistics.get_precision()),
-                          'Recall': float(self.statistics.get_recall()),
-                          'Amount of analyzed tweets': self.statistics.sample_dimension,
-                          'Relations': self.relations})
-        save_obj(self.data, "twitter knowledge data")
+        self.data_controller.save_data()
 
     def submit(self):
         self.submit_controller()
@@ -110,18 +98,17 @@ class AppView(tk.Frame):
         self.next()
 
     def ibm_watson_controller(self):
-        id = None
+
         query = self.steps[1].listbox.get("active")
-        for i in self.cleaned_tweets:
-            if query == i['text']:
-                id = i['id']
-                break
+        id = self.get_query_id(query)
+        self.data_controller.add_analized_tweet(id, self.raw_tweets)            # save the current analized tweet
+
         controller = IBMWatsonController()
         controller.ask_ibm_watson(query, id)
         controller.print_response()
         root = tk.Tk()
-        IMBResponseView(root, controller.get_response(), self.statistics, controller.get_last_relation_found(),
-                        self.relations).pack(side="top", fill="both", expand=True)
+        IMBResponseView(root, controller.get_response(), self.data_controller,
+                        controller.get_last_relation_found()).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
     def submit_controller(self):
@@ -142,7 +129,14 @@ class AppView(tk.Frame):
         controller.search(q=query, num=self.steps[0].spinbox.get())
 
         self.cleaned_tweets = controller.get_cleaned_tweets()
-        controller.save_raw_tweets()
+        self.raw_tweets = controller.get_raw_tweets()
         for tweet in self.cleaned_tweets:
             listbox.insert("end", tweet['text'])
 
+    def get_query_id(self, query):
+        id = None
+        for tweet in self.cleaned_tweets:
+            if query == tweet['text']:
+                id = tweet['id']
+                break
+        return id
