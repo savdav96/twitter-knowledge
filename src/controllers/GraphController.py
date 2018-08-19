@@ -7,7 +7,7 @@ class GraphController:
 
         self.plotlyClient = PlotlyClient()
 
-    def print_graph(self, graph, x, y):
+    def print_graph(self, graph, x, y, x_name, y_name):
         if graph == "lines":
-            self.plotlyClient.print_lines_graph(x, y)
+            self.plotlyClient.print_lines_graph(x, y, x_name, y_name)
 
