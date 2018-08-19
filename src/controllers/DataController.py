@@ -17,6 +17,9 @@ class DataController:
                 if j['Test result'] == "FP" or j['Test result'] == "FN":
                     print(j['Tweet text'])
 
+    def get_data(self):
+        return self.dataManagement.get_data()
+
     def print_data(self):
         self.dataManagement.print_data()
 
