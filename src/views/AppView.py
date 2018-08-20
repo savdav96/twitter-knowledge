@@ -58,14 +58,14 @@ class AppView(tk.Frame):
 
         if step == 0:
             self.print_graph_button.pack_forget()
-            self.graphs_button.pack(side="left")
             self.submit_button.pack(side="right")
             self.close_button.pack(side="left")
             self.back_button.pack_forget()
-            self.save_button.pack_forget()
-            self.print_data_button.pack_forget()
+            self.save_button.pack(side="left")
+            self.print_data_button.pack(side="left")
+            self.print_FP_FN_button.pack(side="left")
+            self.graphs_button.pack(side="left")
             self.ibm_watson_button.pack_forget()
-            self.print_FP_FN_button.pack_forget()
 
         else:
             if step == 2:
@@ -84,9 +84,9 @@ class AppView(tk.Frame):
                 self.graphs_button.pack_forget()
                 self.back_button.pack(side="left")
                 self.ibm_watson_button.pack(side="right")
-                self.save_button.pack(side="left")
-                self.print_data_button.pack(side="left")
-                self.print_FP_FN_button.pack(side="left")
+                self.save_button.pack_forget()
+                self.print_data_button.pack_forget()
+                self.print_FP_FN_button.pack_forget()
                 self.close_button.pack_forget()
                 self.submit_button.pack_forget()
 
