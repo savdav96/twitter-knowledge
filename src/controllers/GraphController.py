@@ -1,4 +1,4 @@
-from src.models.PlotlyClient import PlotlyClient
+from models.plotly.PlotlyClient import PlotlyClient
 
 
 class GraphController:

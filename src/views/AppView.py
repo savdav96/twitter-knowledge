@@ -1,12 +1,7 @@
-import pprint
 from tkinter import ttk, messagebox
 import tkinter as tk
-import datetime
 
 from controllers.DataController import DataController
-from models.DataManagement import DataManagement
-from models.utils.DataMiningUtils import DataMiningStatistics
-from models.utils.IOUtils import save_obj, load_obj
 from src.controllers.TwitterController import TwitterController
 from src.controllers.IBMWatsonController import IBMWatsonController
 from src.views.StartView import StartView
@@ -37,7 +32,7 @@ class AppView(tk.Frame):
         self.print_graph_button = ttk.Button(self.button_frame, text="Print graph", command=self.print_graph)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
-        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_controller)
+        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_button_controller)
 
         self.button_frame.pack(side="bottom", fill="x", padx=5, pady=5)
         self.content_frame.pack(side="top", fill="both", anchor="n")
@@ -159,18 +154,18 @@ class AppView(tk.Frame):
         self.data_controller.save_data()
 
     def submit(self):
-        self.submit_controller()
+        self.submit_button_controller()
         self.next()
 
     def ibm_watson(self):
-        self.ibm_watson_controller()
+        self.ibm_watson_button_controller()
         self.next()
 
-    def ibm_watson_controller(self):
+    def ibm_watson_button_controller(self):
 
         query = self.steps[1].listbox.get("active")
         id = self.get_query_id(query)
-        self.data_controller.add_analized_tweet(id, self.raw_tweets)            # save the current analized tweet
+        self.data_controller.add_analyzed_tweet(id, self.raw_tweets)            # save the current analized tweet
 
         controller = IBMWatsonController()
         controller.ask_ibm_watson(query, id)
@@ -180,7 +175,7 @@ class AppView(tk.Frame):
                         controller.get_last_relation_found()).pack(side="top", fill="both", expand=True)
         root.mainloop()
 
-    def submit_controller(self):
+    def submit_button_controller(self):
 
         query = self.steps[0].entry.get()
         listbox = self.steps[1].listbox
