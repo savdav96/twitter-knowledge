@@ -104,8 +104,10 @@ class AppView(tk.Frame):
         listbox = self.steps[2].listbox
         listbox.insert("end", "Date-time / precision")
         listbox.insert("end", "Date-time / recall")
-        listbox.insert("end", "Precision / Recall")
+        listbox.insert("end", "Precision / recall")
         listbox.insert("end", "Amount of analyzed tweets / precision")
+        listbox.insert("end", "Date-time / precision (confidence limit for FP > 0.3)")
+        listbox.insert("end", "Amount of analyzed tweets / precision (confidence limit for FP > 0.3)")
 
     def print_data_controller(self):
         self.data_controller.print_data()
@@ -114,41 +116,7 @@ class AppView(tk.Frame):
         self.data_controller.print_FP_FN()
 
     def print_graph(self):
-        data = self.data_controller.get_data()
-
-        if self.steps[2].listbox.get("active") == "Date-time / precision":
-            x = []
-            y = []
-            for sample in data:
-                y.append(sample['Precision'])
-                x.append(sample['Date'])
-            self.graph_controller.print_graph("lines", x, y, "Time", "Precision")
-
-        if self.steps[2].listbox.get("active") == "Date-time / recall":
-            x = []
-            y = []
-            for sample in data:
-                y.append(sample['Recall'])
-                x.append(sample['Date'])
-            self.graph_controller.print_graph("lines", x, y, "Time", "Recall")
-
-        if self.steps[2].listbox.get("active") == "Precision / Recall":
-            x = []
-            y = []
-            for sample in data:
-                x.append(sample['Precision'])
-                y.append(sample['Recall'])
-            self.graph_controller.print_graph("lines", x, y, "Precision", "Recall")
-
-        if self.steps[2].listbox.get("active") == "Amount of analyzed tweets / precision":
-            x = []
-            y = []
-            number_of_tweets = 0
-            for sample in data:
-                y.append(sample['Precision'])
-                number_of_tweets += sample['Amount of analyzed tweets']
-                x.append(number_of_tweets)
-            self.graph_controller.print_graph("lines", x, y, "Amount of analyzed tweets", "Precision")
+        self.graph_controller.print_graph(self.steps[2].listbox.get("active"), self.data_controller.get_data())
 
     def save_controller(self):
         self.data_controller.save_data()
