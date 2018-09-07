@@ -31,8 +31,8 @@ class AppView(tk.Frame):
 
         self.back_button = ttk.Button(self.button_frame, text="< Back", command=self.back_button)
         self.save_button = ttk.Button(self.button_frame, text="Save", command=self.save_controller)
-        self.print_data_button = ttk.Button(self.button_frame, text="Print data", command=self.print_data_controller)
-        self.print_FP_FN_button = ttk.Button(self.button_frame, text="Print FP/FN", command=self.print_FP_FN)
+        self.print_data_button = ttk.Button(self.button_frame, text="Print raw data", command=self.print_data_controller)
+        self.print_FP_FN_button = ttk.Button(self.button_frame, text="Print FP/FN tweets", command=self.print_FP_FN)
         self.graphs_button = ttk.Button(self.button_frame, text="Graphs", command=self.graphs_button)
         self.print_graph_button = ttk.Button(self.button_frame, text="Print graph", command=self.print_graph)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
@@ -170,7 +170,7 @@ class AppView(tk.Frame):
 
         query = self.steps[1].listbox.get("active")
         id = self.get_query_id(query)
-        self.data_controller.add_analized_tweet(id, self.raw_tweets)            # save the current analized tweet
+        self.data_controller.add_analized_tweet(id, self.raw_tweets)
 
         controller = IBMWatsonController()
         controller.ask_ibm_watson(query, id)
@@ -178,6 +178,8 @@ class AppView(tk.Frame):
         root = tk.Tk()
         IMBResponseView(root, controller.get_response(), self.data_controller,
                         controller.get_last_relation_found()).pack(side="top", fill="both", expand=True)
+        root.resizable(height=False, width=False)
+        root.title("IBM Watson Result")
         root.mainloop()
 
     def submit_controller(self):

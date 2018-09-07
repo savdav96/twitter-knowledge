@@ -21,7 +21,7 @@ class View:
         self.statistics = DataMiningStatistics()
         self.positive = False
         self.true = False
-        self.data = load_obj("twitter knowledge data")
+        #self.data = load_obj("twitter knowledge data")
         if self.tweets.__len__() > 0:
             self.current_tweet = self.tweets[0]
         else:
@@ -115,40 +115,40 @@ class View:
     def submit_controller(self):
 
         # Either runs a Twitter stream or searches a finite set of results, depending on "stream" flag
+        print(self.stream.get())
 
-        self.stop.grid_forget()
-        query = self.entry.get()
-
-        if not query:
-
-            print("Input must not be empty!")
-
-            return
-
-        print("You wrote: " + query + "\n")
-
-        if self.stream.get():
-
-            self.twitter.start_stream(q=query)
-            self.stop.grid(row=0, column=5)
-            self.status.configure(text="Streaming in progress...")
-
-        else:
-
-            self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=30)
-            #self.tweets = cleaner(self.tweets)
-            self.status.configure(text="Results printed below")
-            print("#############################################################################")
-            for tweet in self.tweets:
-                print(tweet)
-
-        if len(self.tweets):
-
-            self.tokenize.configure(state="normal")
-
-        print("\n")
-
-        return
+        # self.stop.grid_forget()
+        # query = self.entry.get()
+        #
+        # if not query:
+        #
+        #     print("Input must not be empty!")
+        #
+        #     return
+        #
+        # print("You wrote: " + query + "\n")
+        #
+        # if self.stream.get():
+        #     self.twitter.start_stream(q=query)
+        #     self.stop.grid(row=0, column=5)
+        #     self.status.configure(text="Streaming in progress...")
+        #
+        # else:
+        #
+        #     self.tweets = self.twitter.search_no_stream(q=query, pretty=self.pretty.get(), num=30)
+        #     #self.tweets = cleaner(self.tweets)
+        #     self.status.configure(text="Results printed below")
+        #     print("#############################################################################")
+        #     for tweet in self.tweets:
+        #         print(tweet)
+        #
+        # if len(self.tweets):
+        #
+        #     self.tokenize.configure(state="normal")
+        #
+        # print("\n")
+        #
+        # return
 
     def stop_controller(self):
 
