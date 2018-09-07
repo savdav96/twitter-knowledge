@@ -24,7 +24,6 @@ class IBMWatsonController:
                              'Test result': "not validated"}
 
     def print_response(self):
-        # TODO implement list of multiple requests and responses
         print(self.response['intents'])
         print(self.response['entities'])
 

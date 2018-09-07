@@ -1,12 +1,7 @@
-import pprint
 from tkinter import ttk, messagebox
 import tkinter as tk
-import datetime
 
 from controllers.DataController import DataController
-from models.DataManagement import DataManagement
-from models.utils.DataMiningUtils import DataMiningStatistics
-from models.utils.IOUtils import save_obj, load_obj
 from src.controllers.TwitterController import TwitterController
 from src.controllers.IBMWatsonController import IBMWatsonController
 from src.views.StartView import StartView
@@ -37,7 +32,7 @@ class AppView(tk.Frame):
         self.print_graph_button = ttk.Button(self.button_frame, text="Print graph", command=self.print_graph)
         self.submit_button = ttk.Button(self.button_frame, text="Submit >", command=self.submit)
         self.close_button = ttk.Button(self.button_frame, text="Quit", command=self.quit)
-        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_controller)
+        self.ibm_watson_button = ttk.Button(self.button_frame, text="Ask IBMWatson >", command=self.ibm_watson_button_controller)
 
         self.button_frame.pack(side="bottom", fill="x", padx=5, pady=5)
         self.content_frame.pack(side="top", fill="both", anchor="n")
@@ -58,14 +53,14 @@ class AppView(tk.Frame):
 
         if step == 0:
             self.print_graph_button.pack_forget()
-            self.graphs_button.pack(side="left")
             self.submit_button.pack(side="right")
             self.close_button.pack(side="left")
             self.back_button.pack_forget()
-            self.save_button.pack_forget()
-            self.print_data_button.pack_forget()
+            self.save_button.pack(side="left")
+            self.print_data_button.pack(side="left")
+            self.print_FP_FN_button.pack(side="left")
+            self.graphs_button.pack(side="left")
             self.ibm_watson_button.pack_forget()
-            self.print_FP_FN_button.pack_forget()
 
         else:
             if step == 2:
@@ -84,9 +79,9 @@ class AppView(tk.Frame):
                 self.graphs_button.pack_forget()
                 self.back_button.pack(side="left")
                 self.ibm_watson_button.pack(side="right")
-                self.save_button.pack(side="left")
-                self.print_data_button.pack(side="left")
-                self.print_FP_FN_button.pack(side="left")
+                self.save_button.pack_forget()
+                self.print_data_button.pack_forget()
+                self.print_FP_FN_button.pack_forget()
                 self.close_button.pack_forget()
                 self.submit_button.pack_forget()
 
@@ -109,8 +104,10 @@ class AppView(tk.Frame):
         listbox = self.steps[2].listbox
         listbox.insert("end", "Date-time / precision")
         listbox.insert("end", "Date-time / recall")
-        listbox.insert("end", "Precision / Recall")
+        listbox.insert("end", "Precision / recall")
         listbox.insert("end", "Amount of analyzed tweets / precision")
+        listbox.insert("end", "Date-time / precision (confidence limit for FP > 0.3)")
+        listbox.insert("end", "Amount of analyzed tweets / precision (confidence limit for FP > 0.3)")
 
     def print_data_controller(self):
         self.data_controller.print_data()
@@ -119,58 +116,24 @@ class AppView(tk.Frame):
         self.data_controller.print_FP_FN()
 
     def print_graph(self):
-        data = self.data_controller.get_data()
-
-        if self.steps[2].listbox.get("active") == "Date-time / precision":
-            x = []
-            y = []
-            for sample in data:
-                y.append(sample['Precision'])
-                x.append(sample['Date'])
-            self.graph_controller.print_graph("lines", x, y, "Time", "Precision")
-
-        if self.steps[2].listbox.get("active") == "Date-time / recall":
-            x = []
-            y = []
-            for sample in data:
-                y.append(sample['Recall'])
-                x.append(sample['Date'])
-            self.graph_controller.print_graph("lines", x, y, "Time", "Recall")
-
-        if self.steps[2].listbox.get("active") == "Precision / Recall":
-            x = []
-            y = []
-            for sample in data:
-                x.append(sample['Precision'])
-                y.append(sample['Recall'])
-            self.graph_controller.print_graph("lines", x, y, "Precision", "Recall")
-
-        if self.steps[2].listbox.get("active") == "Amount of analyzed tweets / precision":
-            x = []
-            y = []
-            number_of_tweets = 0
-            for sample in data:
-                y.append(sample['Precision'])
-                number_of_tweets += sample['Amount of analyzed tweets']
-                x.append(number_of_tweets)
-            self.graph_controller.print_graph("lines", x, y, "Amount of analyzed tweets", "Precision")
+        self.graph_controller.print_graph(self.steps[2].listbox.get("active"), self.data_controller.get_data())
 
     def save_controller(self):
         self.data_controller.save_data()
 
     def submit(self):
-        self.submit_controller()
+        self.submit_button_controller()
         self.next()
 
     def ibm_watson(self):
-        self.ibm_watson_controller()
+        self.ibm_watson_button_controller()
         self.next()
 
-    def ibm_watson_controller(self):
+    def ibm_watson_button_controller(self):
 
         query = self.steps[1].listbox.get("active")
         id = self.get_query_id(query)
-        self.data_controller.add_analized_tweet(id, self.raw_tweets)
+        self.data_controller.add_analyzed_tweet(id, self.raw_tweets)
 
         controller = IBMWatsonController()
         controller.ask_ibm_watson(query, id)
@@ -182,7 +145,7 @@ class AppView(tk.Frame):
         root.title("IBM Watson Result")
         root.mainloop()
 
-    def submit_controller(self):
+    def submit_button_controller(self):
 
         query = self.steps[0].entry.get()
         listbox = self.steps[1].listbox
