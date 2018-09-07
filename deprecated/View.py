@@ -18,7 +18,7 @@ class View:
         self.twitter = TwitterClient()
         self.witai = WitAIClient
         self.IBMWatson = IBMWatsonClient()
-        self.statistics = DataMiningStatistics()
+        self.statistics = DataMiningUtils()
         self.positive = False
         self.true = False
         #self.data = load_obj("twitter knowledge data")

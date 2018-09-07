@@ -1,5 +1,5 @@
 
-class DataMiningStatistics:     # Class that calculates precision and recall
+class DataMiningUtils:     # Class that calculates precision and recall
 
     def __init__(self):
         self.precision = 0

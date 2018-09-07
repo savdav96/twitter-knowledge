@@ -1,10 +1,10 @@
-from models.DataManagement import DataManagement
+from models.utils.DataManagementUtils import DataManagementUtils
 
 
 class DataController:
 
     def __init__(self):
-        self.dataManagement = DataManagement()
+        self.dataManagement = DataManagementUtils()
 
     def print_FP_FN(self):
         print()
@@ -32,8 +32,8 @@ class DataController:
     def get_relations(self):
         return self.dataManagement.get_relations()
 
-    def add_analized_tweet(self, id, raw_tweets):
+    def add_analyzed_tweet(self, id, raw_tweets):
         for tweet in raw_tweets:
             if tweet['id'] == id:
-                self.dataManagement.add_analized_tweet(tweet)
+                self.dataManagement.add_analyzed_tweet(tweet)
                 break
