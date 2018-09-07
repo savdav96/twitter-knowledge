@@ -141,8 +141,8 @@ class AppView(tk.Frame):
         root = tk.Tk()
         IMBResponseView(root, controller.get_response(), self.data_controller,
                         controller.get_last_relation_found()).pack(side="top", fill="both", expand=True)
-        root.resizable(height=False, width=False)
         root.title("IBM Watson Result")
+        root.resizable(height=False, width=False)
         root.mainloop()
 
     def submit_button_controller(self):
