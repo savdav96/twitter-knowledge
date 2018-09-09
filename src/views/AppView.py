@@ -108,6 +108,10 @@ class AppView(tk.Frame):
         listbox.insert("end", "Amount of analyzed tweets / precision")
         listbox.insert("end", "Date-time / precision (confidence limit for FP > 0.3)")
         listbox.insert("end", "Amount of analyzed tweets / precision (confidence limit for FP > 0.3)")
+        listbox.insert("end", "Date-time / %TN")
+        listbox.insert("end", "Date-time / %FN")
+        listbox.insert("end", "Date-time / %TP")
+        listbox.insert("end", "Date-time / %FP")
 
     def print_data_controller(self):
         self.data_controller.print_data()

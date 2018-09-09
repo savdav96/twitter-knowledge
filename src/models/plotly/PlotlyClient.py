@@ -9,16 +9,17 @@ class PlotlyClient:
         plotly.tools.set_credentials_file(username='JohnDoe23', api_key='i53chdtaMo0EL8JwSyZ9')
 
     def print_lines_graph(self, x, y, x_name, y_name):
-        trace0 = go.Histogram(
+        trace0 = go.Scatter(
             x=x,
             y=y,
+            mode='lines',
             name='lines'
         )
         data = [trace0]
 
         # Edit the layout
-        layout = dict(xaxis=dict(title=x_name),
-                      yaxis=dict(title=y_name),
+        layout = dict(xaxis=dict(title= x_name),
+                      yaxis=dict(title= y_name),
                       )
 
         fig = dict(data=data, layout=layout)
@@ -42,3 +43,19 @@ class PlotlyClient:
         fig = dict(data=data, layout=layout)
 
         py.plot(fig, filename='line-mode')
+
+    def print_bar_chart_graph(self, x, y, x_name, y_name):
+        trace1 = go.Bar(
+            x=x,
+            y=y,
+        )
+
+        data = [trace1]
+
+        # Edit the layout
+        layout = dict(xaxis=dict(title=x_name),
+                      yaxis=dict(title=y_name),
+                      )
+
+        fig = go.Figure(data=data, layout=layout)
+        py.plot(fig, filename='grouped-bar')
