@@ -34,7 +34,7 @@ class DataManagementUtils:
                           'Amount of analyzed tweets': self.statistics.sample_dimension,
                           'Relations': self.relations})
         save_obj(self.data, "twitter knowledge data")
-        save_obj(self.analyzed_tweets, "analized tweets")
+        save_obj(self.analyzed_tweets, "analyzed tweets")
 
     def add_analyzed_tweet(self, tweet):
         self.analyzed_tweets.append(tweet)
